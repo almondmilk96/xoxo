@@ -35,14 +35,44 @@ function winner(board) {
   // X wins
   // 0 wins
   // game is ongoing
-  let winner = null;
+  let winner = null
   if (streak(board)) {
-    return;
+    winner = streak(board)
+  } else {
+    if (!spaceRemains(board)) {
+      return 'draw'
+    }
   }
-  return winner;
+  return winner
 }
 
 //spaces are in an array
-function streak(board, spaces) {
+function streak(board) {
   //streak returns X, 0, NULL
+  if (board[0][0] === board[1][1] === board[2][2]) {
+    return board[0][0]
+  }
+  if (board[0][2] === board[1][1] === board[2][0]) {
+    return board[0][2]
+  }
+  for (let i=0; i<3; i++) {
+    if (board[i][0] === board[i][1] === board[i][2]) {
+      return board[i][0]
+    }
+    if (board[0][i] === board[1][i] === board[2][i]) {
+      return board[0][i]
+    }
+  }
+  return null
+}
+
+function spaceRemains(board) {
+  for (let i=0; i<3; i++) {
+    for (let i=0; i<3; i++) {
+      if (!board[i][i]) {
+        return true
+      }
+    }
+  }
+  return false
 }
