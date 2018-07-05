@@ -38,7 +38,6 @@ game.subscribe(getInput('X'));
 game.subscribe(getInput('O'));
 game.subscribe(() => {
   let { winner } = game.getState();
-  console.log('winner: ', winner);
   if (winner === 'draw') {
     process.stdout.write('tie!');
   } else if (winner) {

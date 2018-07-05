@@ -42,46 +42,46 @@ function turnReducer(turn = 'X', action) {
 
 function checkWinner(board) {
   let winner = null;
-  if (streak(board)) {
-    winner = streak(board);
+  let leftDiagonal = (streak([[0, 0], [1, 1], [2, 2]], board))
+  let rightDiagonal = (streak([[0, 2], [1, 1], [2, 0]], board))
+  let topRow = (streak([[0, 0], [0, 1], [0, 2]], board))
+  let middleRow = (streak([[1, 0], [1, 1], [1, 2]], board))
+  let bottomRow = (streak([[2, 0], [2, 1], [2, 2]], board))
+  let leftColumn = (streak([[0, 0], [1, 0], [2, 0]], board))
+  let middleColumn = (streak([[0, 1], [1, 1], [2, 1]], board))
+  let rightColumn = (streak([[0, 2], [1, 2], [2, 2]], board)) 
+  if (leftDiagonal) {
+    winner = leftDiagonal;
+  } else if (rightDiagonal) {
+    winner = rightDiagonal;
+  } else if (topRow) {
+    winner = topRow;
+  } else if (middleRow) {
+    winner = middleRow;
+  } else if (bottomRow) {
+    winner = bottomRow;
+  } else if (leftColumn) {
+    winner = leftColumn;
+  } else if (middleColumn) {
+    winner = middleColumn;
+  } else if (rightColumn) {
+    winner = rightColumn;
   } else if (!spaceRemains(board)) {
-    return 'draw';
+    winner = 'draw';
   }
   return winner;
 }
 
 //spaces are in an array
-function streak(board) {
+function streak(coords, board) {
   //streak returns X, 0, NULL
-  if (
-    board[0] &&
-    board[0][0] &&
-    (board[0][0] === board[1][1]) === board[2][2]
-  ) {
-    return board[0][0];
-  }
-  if (
-    board[0] &&
-    board[0][2] &&
-    (board[0][2] === board[1][1]) === board[2][0]
-  ) {
-    return board[0][2];
-  }
-  for (let i = 0; i < 3; i++) {
-    if (
-      board[i] &&
-      board[i][0] &&
-      (board[i][0] === board[i][1]) === board[i][2]
-    ) {
-      return board[i][0];
-    }
-    if (
-      board[0] &&
-      board[0][i] &&
-      (board[0][i] === board[1][i]) === board[2][i]
-    ) {
-      return board[0][i];
-    }
+  const a = board.getIn(coords[0]);
+  const b = board.getIn(coords[1]);
+  const c = board.getIn(coords[2]);
+  if (a === 'X' && b === 'X' && c === 'X') {
+    return 'X';
+  } else if (a === 'O' && b === 'O' && c === 'O') {
+    return 'O'
   }
   return null;
 }
