@@ -5,7 +5,7 @@ const MOVE = 'MOVE';
 const initialState = {
   turn: 'X',
   board: Map(),
-  winner: 'banana',
+  winner: null,
 };
 
 export function move(player, position) {
