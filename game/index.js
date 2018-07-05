@@ -15,7 +15,7 @@ export function move(player, position) {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case MOVE: 
+    case MOVE:
       const newState = Object.assign({}, state)
       const newBoard = state.board.setIn(action.position, action.player)
       newState.board = newBoard
@@ -25,9 +25,23 @@ export default function reducer(state = initialState, action) {
         newState.turn = 'X'
       }
       return newState;
-    default: 
+    default:
       return state
   }
+}
+
+function winner(board){
+  //draw
+  // X wins
+  // 0 wins
+  // game is ongoing
+  let winner = 'X';
+  return winner;
+}
+
+//spaces are in an array
+function streak(board, spaces ){
+  spaces.forEach(space =>)
 }
 
 
