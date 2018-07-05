@@ -1,26 +1,33 @@
 import {Map} from 'immutable'
 import { createStore } from 'redux'
 let board = Map()
+const initialState = {turn: 'X', board: board}
 
-export default function reducer(state, action) {
-  switch (action.type) {
-    case MOVE: 
-      board = board.setIn(action.position, action.player)
-      if (action.player === 'X') {
-        board = board.set(turn, 'O')
-      } else {
-        board = board.set(turn, 'X')
-      }
-    default: 
-      return state
-  }
-}
+const MOVE = 'MOVE'
 
-
-function MOVE(player, position) {
+export function move(player, position) {
   return {
     type: MOVE,
     position: position,
     player: player
   }
 }
+
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case MOVE: 
+      const newState = Object.assign({}, state)
+      const newBoard = state.board.setIn(action.position, action.player)
+      newState.board = newBoard
+      if (newState.turn === 'X') {
+        newState.turn = 'O'
+      } else {
+        newState.turn = 'X'
+      }
+      return newState;
+    default: 
+      return state
+  }
+}
+
+
